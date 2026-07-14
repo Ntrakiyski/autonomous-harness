@@ -81,6 +81,7 @@ client-product/
 ├── .autonomous/
 │   ├── PROJECT.md                # product intent and scope boundaries
 │   ├── CONTEXT.md                # domain vocabulary and source-document map
+│   ├── GUARDRAILS.md             # shared delivery safety rules
 │   ├── phases/
 │   │   └── phase-N.md            # status and pointer to specs/001-feature-slug/
 │   ├── evidence/
