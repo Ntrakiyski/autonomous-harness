@@ -95,8 +95,13 @@ and state rather than chat history.
 
 The public package source lives in `skills/`. Every skill has a concise
 `SKILL.md` and generated `agents/openai.yaml`; only `autonomous-init` includes
-state-template assets. Validate skills with the `skill-creator` validator, then
-install them into a clean fixture project through the Skills CLI.
+state-template assets. `autonomous-gate/references/` contains its gate
+methodology and mode examples; each real gate still derives checks from the
+current project and evidence.
 
-The older `AUTONOMOUS.md`, `framework/`, and `checklists/` directories remain
-as contributor reference material while the package evolves.
+## Framework Reference
+
+[`docs/framework/`](docs/framework/) holds the project-document concepts that
+informed the Harness: product context, guardrails, architecture, data, design,
+testing, and learnings. They explain the framework; they are not installed by
+the skills or required in a consuming project.

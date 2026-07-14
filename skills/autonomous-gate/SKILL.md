@@ -14,7 +14,9 @@ is a failure, never an assumption.
 2. Read the active artifact, root instructions, `.autonomous/PROJECT.md`,
    `CONTEXT.md`, `GUARDRAILS.md`, `state.json`, phase manifest, and available
    evidence.
-3. Derive specific yes-or-no checks from the current scope, architecture,
+3. Read `references/checklist-methodology.md` and the matching mode example:
+   `prd-gate.md`, `spec-review.md`, `code-review.md`, or `ship-gate.md`.
+   Derive specific yes-or-no checks from the current scope, architecture,
    design, testing rules, prior learnings, and the selected boundary.
 4. Write `.autonomous/phases/gate-<mode>.md` with the source paths, checks,
    evidence links, and one result: `pass`, `fail`, or `blocked`.
@@ -26,7 +28,8 @@ is a failure, never an assumption.
 ## Boundaries
 
 - Do not deploy, merge, or waive a failed check.
-- Do not reuse a static checklist without deriving project-specific checks.
+- The reference files are prompts, not static checklists. Do not copy one
+  without deriving project-specific checks.
 - Do not mark a missing artifact or missing evidence as pass.
 
 ## Verify
