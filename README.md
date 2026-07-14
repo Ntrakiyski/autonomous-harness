@@ -23,6 +23,77 @@ Clean session → read ROLE.md → read 12 framework files → agent is ready
 
 ---
 
+## Prerequisites
+
+You need three tools installed before using the harness:
+
+### 1. Hermes Agent
+
+The orchestrator that spawns agents, manages the kanban board, and runs
+the pipeline.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash
+```
+
+Verify: `hermes --version`
+
+### 2. Codex CLI (or Claude Code)
+
+The implementation agent that writes code. Codex is the primary; Claude
+Code is the fallback.
+
+```bash
+# Codex CLI (OpenAI)
+npm install -g @openai/codex
+codex --version
+
+# Claude Code (Anthropic) — alternative
+npm install -g @anthropic-ai/claude-code
+claude --version
+```
+
+### 3. Spec Kit (GitHub)
+
+Generates specs, plans, and tasks from PRDs using slash commands.
+
+```bash
+# Install uv first (if not already installed):
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Install Spec Kit CLI (replace vX.Y.Z with the latest release tag
+# from https://github.com/github/spec-kit/releases):
+uv tool install specify-cli --from git+https://github.com/github/spec-kit.git@vX.Y.Z
+
+# Initialize Spec Kit in your project:
+cd your-project
+specify init --integration copilot
+```
+
+After `specify init`, your AI coding agent will have access to these
+slash commands:
+
+| Command | What it does |
+|---|---|
+| `/speckit.constitution` | Create project governing principles |
+| `/speckit.specify` | Define what to build (requirements, user stories) |
+| `/speckit.clarify` | Resolve ambiguities before planning |
+| `/speckit.plan` | Technical implementation plan with tech stack |
+| `/speckit.tasks` | Generate executable task list |
+| `/speckit.analyze` | Cross-artifact consistency check |
+| `/speckit.implement` | Execute all tasks to build the feature |
+| `/speckit.checklist` | Generate quality checklists |
+| `/speckit.converge` | Assess codebase against spec, add remaining work |
+
+The harness uses Spec Kit at **step 4** of the pipeline — it runs the
+full flow (`constitution → specify → clarify → plan → tasks → analyze`)
+for each phase independently. See `AUTONOMOUS.md` for the full pipeline.
+
+To check for updates: `specify self check`
+To upgrade: `specify self upgrade`
+
+---
+
 ## How It Works
 
 ```
