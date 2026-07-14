@@ -124,10 +124,9 @@ To upgrade: `specify self upgrade`
 
 | File | Purpose |
 |---|---|
-| [`PROJECT.md`](framework/PROJECT.md) | The founding idea — problem, solution, success outcomes. Written before any PRD. |
-| [`GUARDRAILS.md`](framework/GUARDRAILS.md) | Non-negotiable safety rules — git, filesystem, deploy, data, agent conduct |
 | [`AUTONOMOUS.md`](AUTONOMOUS.md) | Full pipeline contract — 12 sections, 540 lines |
 | [`framework/ROLE.md`](framework/ROLE.md) | Agent bootstrap — 14-step startup sequence **(do not change)** |
+| [`framework/PROJECT.md`](framework/PROJECT.md) | The founding idea — problem, solution, success outcomes. Written before any PRD. |
 | [`framework/AGENTS.md`](framework/AGENTS.md) | Project roles, workspace, delivery model |
 | [`framework/ARCHITECTURE.md`](framework/ARCHITECTURE.md) | Module boundaries, data flow, APIs, seams |
 | [`framework/DATABASE.md`](framework/DATABASE.md) | Models, relationships, migrations |
@@ -139,6 +138,7 @@ To upgrade: `specify self upgrade`
 | [`framework/SUBAGENT.md`](framework/SUBAGENT.md) | Inter-agent contract — vocabulary, checklist, handoff |
 | [`framework/HERMES.md`](framework/HERMES.md) | Hermes operations — dispatcher, spawning, worktrees |
 | [`framework/LEARNINGS.md`](framework/LEARNINGS.md) | Accumulated knowledge from retrospectives |
+| [`framework/GUARDRAILS.md`](framework/GUARDRAILS.md) | Non-negotiable safety rules — git, filesystem, deploy, data, agent conduct |
 | [`checklists/`](checklists/) | Dynamic per-phase checklists (PRD, Spec, Code, Ship) |
 
 ---
