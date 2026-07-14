@@ -82,6 +82,7 @@ These files are read by every agent at session start (see ROLE.md):
 
 | File | Purpose | Location |
 |---|---|---|
+| PROJECT.md | Project constitution, north star, milestones | `PROJECT.md` |
 | ROLE.md | Bootstrap — how to become this agent | `framework/ROLE.md` |
 | ARCHITECTURE.md | System design, seams, data flow | `framework/ARCHITECTURE.md` |
 | DATABASE.md | Models, relationships, migrations | `framework/DATABASE.md` |

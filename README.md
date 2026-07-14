@@ -124,8 +124,9 @@ To upgrade: `specify self upgrade`
 
 | File | Purpose |
 |---|---|
+| `PROJECT.md` | Project constitution — north star, users, milestones, constraints |
 | `AUTONOMOUS.md` | Full pipeline contract — 12 sections, 540 lines |
-| `framework/ROLE.md` | Agent bootstrap — 12-step startup sequence |
+| `framework/ROLE.md` | Agent bootstrap — 13-step startup sequence **(do not change)** |
 | `framework/AGENTS.md` | Project roles, workspace, delivery model |
 | `framework/ARCHITECTURE.md` | Module boundaries, data flow, APIs, seams |
 | `framework/DATABASE.md` | Models, relationships, migrations |
@@ -175,13 +176,11 @@ To upgrade: `specify self upgrade`
 ## Quick Start
 
 ```bash
-# 1. Clone the harness
+# 1. Clone the harness into your project
+cd your-project
 git clone https://github.com/Ntrakiyski/autonomous-harness.git
 
-# 2. Copy it into your project
-cp -r autonomous-harness/ your-project/autonomous-harness/
-
-# 3. Ask your AI agent:
+# 2. Ask your AI agent:
 "What is autonomous-harness and what are my first steps?"
 ```
 
@@ -195,18 +194,19 @@ through filling in the project-specific templates.
 Every agent reads these files in order at session start:
 
 ```
-1. ROLE.md           — How to become this agent
-2. AGENTS.md         — Who I am, what I can touch
-3. ARCHITECTURE.md   — How the system is built
-4. DATABASE.md       — How data is stored
-5. DESIGN.md         — How things look
-6. TESTING.md        — How we test
-7. VERSION-CONTROL.md — How we use git
-8. COMMIT-TEMPLATE.md — How we write commits
-9. SUBAGENT.md       — How we work together
-10. DEBUGGING.md     — How we debug
-11. LEARNINGS.md     — What we've learned
-12. AUTONOMOUS.md    — The full pipeline contract
+1. PROJECT.md        — What we're building and why
+2. ROLE.md           — How to become this agent
+3. AGENTS.md         — Who I am, what I can touch
+4. ARCHITECTURE.md   — How the system is built
+5. DATABASE.md       — How data is stored
+6. DESIGN.md         — How things look
+7. TESTING.md        — How we test
+8. VERSION-CONTROL.md — How we use git
+9. COMMIT-TEMPLATE.md — How we write commits
+10. SUBAGENT.md      — How we work together
+11. DEBUGGING.md     — How we debug
+12. LEARNINGS.md     — What we've learned
+13. AUTONOMOUS.md    — The full pipeline contract
 ```
 
 ---
