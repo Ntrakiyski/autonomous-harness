@@ -18,7 +18,7 @@ organization.
 Every agent reads them at session start and they become project-aware.
 
 ```
-Clean session → read ROLE.md → read 12 framework files → agent is ready
+Clean session → read 14 framework files → agent is ready
 ```
 
 ---
@@ -100,7 +100,7 @@ To upgrade: `specify self upgrade`
 ┌──────────┐    ┌───────────┐    ┌────────────┐    ┌──────────┐
 │  Manager │───▶│  Planner  │───▶│  PRD Gate  │───▶│   Spec   │
 │ (CEO)    │    │ Architect │    │ Checklist  │    │   Kit    │
-│          │    │ Designer  │    │  22 items  │    │          │
+│          │    │ Designer  │    │  30 items  │    │          │
 └──────────┘    └───────────┘    └────────────┘    └──────────┘
                                                         │
                                                         ▼
@@ -122,23 +122,25 @@ To upgrade: `specify self upgrade`
 
 ## File Map
 
+Files in the order every agent reads them at session start:
+
 | File | Purpose |
 |---|---|
-| [`AUTONOMOUS.md`](AUTONOMOUS.md) | Full pipeline contract — 12 sections, 540 lines |
-| [`framework/ROLE.md`](framework/ROLE.md) | Agent bootstrap — 14-step startup sequence **(do not change)** |
 | [`framework/PROJECT.md`](framework/PROJECT.md) | The founding idea — problem, solution, success outcomes. Written before any PRD. |
+| [`framework/GUARDRAILS.md`](framework/GUARDRAILS.md) | Non-negotiable safety rules — git, filesystem, deploy, data, agent conduct |
+| [`framework/ROLE.md`](framework/ROLE.md) | Agent bootstrap — 14-step startup sequence **(do not change)** |
 | [`framework/AGENTS.md`](framework/AGENTS.md) | Project roles, workspace, delivery model |
 | [`framework/ARCHITECTURE.md`](framework/ARCHITECTURE.md) | Module boundaries, data flow, APIs, seams |
 | [`framework/DATABASE.md`](framework/DATABASE.md) | Models, relationships, migrations |
 | [`framework/DESIGN.md`](framework/DESIGN.md) | Visual token spec (Google DESIGN.md format) |
 | [`framework/TESTING.md`](framework/TESTING.md) | Testing strategy — pyramid, states, evidence, E2E |
-| [`framework/DEBUGGING.md`](framework/DEBUGGING.md) | Structured logging, error traceability, quick fixes |
 | [`framework/VERSION-CONTROL.md`](framework/VERSION-CONTROL.md) | Git workflow, branches, PRs, CI/CD, code review |
 | [`framework/COMMIT-TEMPLATE.md`](framework/COMMIT-TEMPLATE.md) | Commit format + learnings extraction |
 | [`framework/SUBAGENT.md`](framework/SUBAGENT.md) | Inter-agent contract — vocabulary, checklist, handoff |
-| [`framework/HERMES.md`](framework/HERMES.md) | Hermes operations — dispatcher, spawning, worktrees |
+| [`framework/DEBUGGING.md`](framework/DEBUGGING.md) | Structured logging, error traceability, quick fixes |
 | [`framework/LEARNINGS.md`](framework/LEARNINGS.md) | Accumulated knowledge from retrospectives |
-| [`framework/GUARDRAILS.md`](framework/GUARDRAILS.md) | Non-negotiable safety rules — git, filesystem, deploy, data, agent conduct |
+| [`AUTONOMOUS.md`](AUTONOMOUS.md) | Full pipeline contract — 11 steps, role definitions, guardrails |
+| [`framework/HERMES.md`](framework/HERMES.md) | Hermes operations — dispatcher, spawning, worktrees |
 | [`checklists/`](checklists/) | Dynamic per-phase checklists (PRD, Spec, Code, Ship) |
 
 ---
