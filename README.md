@@ -92,7 +92,7 @@ Clean session → read ROLE.md → read 12 framework files → agent is ready
 | **Quality gates** | Husky | [github.com/typicode/husky](https://github.com/typicode/husky) |
 | **Testing** | Playwright | [playwright.dev](https://playwright.dev) |
 | **Design** | Google DESIGN.md | [github.com/google-labs-code/design.md](https://github.com/google-labs-code/design.md) |
-| **Specs** | Spec Kit | (project-local) |
+| **Specs** | Spec Kit | [github.com/github/spec-kit](https://github.com/github/spec-kit) |
 | **Deploy** | Vercel | [vercel.com](https://vercel.com) |
 | **Research** | Feynman | [github.com/companion-inc/feynman](https://github.com/companion-inc/feynman) |
 | **Book extraction** | book-to-skill | [github.com/virgiliojr94/book-to-skill](https://github.com/virgiliojr94/book-to-skill) |
