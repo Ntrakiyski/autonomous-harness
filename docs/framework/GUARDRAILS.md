@@ -41,9 +41,9 @@ The project is your world. Stay in it.
 commands require explicit user confirmation. If you're about to
 delete something irreversible, ask first.
 
-### F3: Never modify framework files marked "do not change"
-`ROLE.md` and this file (`GUARDRAILS.md`) are the project's
-constitution. Do not edit them unless explicitly instructed.
+### F3: Never modify project instructions marked "do not change"
+Treat the project's `AGENTS.md` and guardrails as its constitution. Do not
+edit them unless explicitly instructed.
 
 ---
 

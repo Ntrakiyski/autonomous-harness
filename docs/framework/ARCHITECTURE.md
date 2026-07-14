@@ -11,7 +11,7 @@ Monolith, microservices, serverless? What are the major tiers?]
 ## Module Map
 
 [FILL: List every module with its interface, seam, and responsibility.
-Use the vocabulary from AUTONOMOUS.md: module, interface, seam, adapter.]
+Use a consistent vocabulary for modules, interfaces, seams, and adapters.]
 
 | Module | Interface | Seam | Responsibility |
 |---|---|---|---|

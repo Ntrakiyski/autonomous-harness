@@ -35,7 +35,7 @@
 
 | Pattern | First Seen | Status |
 |---|---|---|
-| [FILL: e.g. Agents invent novel patterns] | [FILL: Phase 1] | Mitigated by SUBAGENT.md consistency rules + pattern check gate |
+| [FILL: e.g. Agents invent novel patterns] | [FILL: Phase 1] | Mitigated by project conventions + a gate check |
 | [FILL] | [FILL] | [FILL: Active / Mitigated / Resolved] |
 
 ## Never Again
