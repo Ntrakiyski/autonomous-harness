@@ -1,107 +1,151 @@
 # Autonomous Harness
 
-> Turn agent work into a disciplined, evidence-backed delivery flow inside an
-> existing software project.
+> A Hermes-led framework for turning a user's intent into disciplined,
+> evidence-backed software delivery.
 
-Autonomous Harness is a project-local skill package, not a project template to
-clone. It adds reusable delivery procedures while preserving the product's own
-architecture, design, documentation, and source code.
+Autonomous Harness is not a chat prompt or a collection of isolated coding
+tricks. It gives an operator, Hermes, and coding agents one shared delivery
+model: clear project truth, bounded work, explicit gates, and durable evidence.
 
-## Install
+```text
+User -> Hermes -> orchestration -> coding agents -> evidence -> gate
+                    ^                                  |
+                    +---------- framework -------------+
+```
 
-From the root of an existing project:
+The framework lives in this repository. The skills are the project-local
+connection point that lets Hermes-directed coding agents follow it inside an
+existing product.
+
+## What It Gives You
+
+- A delivery contract for product context, safety boundaries, architecture,
+  testing, handoffs, learning, and release decisions.
+- Hermes as the operator that turns user intent into coordinated work.
+- Four installable skills that let coding agents initialize project state,
+  create Spec Kit features, deliver vertical slices, and run evidence-backed
+  gates.
+- A durable `.autonomous/` record in the product repository so the next agent
+  continues from project truth and evidence rather than chat history.
+
+## Prerequisites
+
+| Component | Role | Required when |
+|---|---|---|
+| [Hermes Agent](https://hermes-agent.nousresearch.com/docs/) | Operator and orchestrator | Running the full Harness loop |
+| A coding agent such as [Codex](https://developers.openai.com/codex/) | Implements scoped work | Always |
+| Skills CLI | Installs the agent procedures | Always |
+| [Spec Kit](https://github.com/github/spec-kit) | Creates specs, plans, and tasks | Before `autonomous-spec` |
+
+For a command-line Hermes install on macOS, Linux, or WSL2, the official
+installer is:
 
 ```bash
-npx skills add Ntrakiyski/autonomous-harness -a codex
+curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
 ```
 
-This installs the four skills in `.agents/skills/` for Codex:
+Then complete Hermes provider setup before asking it to orchestrate work. See
+the [Hermes quickstart](https://hermes-agent.nousresearch.com/docs/getting-started/quickstart/).
 
-- `autonomous-init` — adopt the Harness and create project state.
-- `autonomous-spec` — turn approved scope into a Spec Kit feature.
-- `autonomous-deliver` — implement one approved vertical slice with evidence.
-- `autonomous-gate` — run an evidence-backed PRD, spec, code, or ship gate.
+## How the Framework Works
 
-## First Use
+1. The user gives Hermes an outcome, not an implementation transcript.
+2. Hermes reads the framework and existing project truth, then coordinates the
+   right planning, delivery, review, or gate work.
+3. Coding agents use the installed skills to create durable project state,
+   Spec Kit artifacts, implementation evidence, and handoffs.
+4. Gates evaluate actual artifacts and evidence before work advances.
+5. Hermes reports the decision and carries the learned context into the next
+   slice.
 
-Ask Codex to initialize the project:
-
-```text
-Use $autonomous-init to set up autonomous delivery in this project.
-```
-
-The initializer inspects existing instructions and documentation, then creates
-only Harness-owned state:
-
-```text
-.autonomous/
-├── PROJECT.md
-├── CONTEXT.md
-├── GUARDRAILS.md
-├── state.json
-├── phases/
-├── evidence/
-└── retrospectives/
-```
-
-It never overwrites an existing `AGENTS.md` or project document without asking.
-
-## Spec Kit
-
-`autonomous-spec` requires Spec Kit. Initialize it once in the project before
-creating a governed feature:
-
-```bash
-specify init --here --force --integration codex --integration-options="--skills"
-```
-
-Spec Kit owns `.specify/` and creates feature artifacts under
-`specs/<number>-<slug>/`. Harness does not copy or relocate those files; its
-phase manifest and lifecycle state link to them.
-
-`--force` permits Spec Kit to merge into the existing project after Harness
-skills have been installed. Review the merge output; the setup preserves the
-installed Harness skills alongside the Spec Kit skills.
-
-```text
-.agents/skills/                 # Autonomous Harness and Spec Kit skills
-.autonomous/                    # Harness-owned project and lifecycle state
-.specify/                       # Spec Kit configuration, templates, memory
-specs/001-feature-slug/         # Spec Kit feature: spec.md, plan.md, tasks.md
-```
-
-## Lifecycle State
-
-`.autonomous/state.json` is the current machine-readable lifecycle record. It
-contains the Harness initialization state, Spec Kit availability, active
-milestone, milestone statuses, feature directories, and latest gate result.
-
-It is current state, not an activity log. Product context remains in
-`PROJECT.md`; feature requirements remain in Spec Kit; raw verification output
-remains in `.autonomous/evidence/`.
-
-## Delivery Flow
-
-1. Initialize Harness with `autonomous-init`.
-2. Approve scope and initialize Spec Kit.
-3. Run `autonomous-spec` for one vertical feature.
-4. Run `autonomous-deliver` for an approved task or feature slice.
-5. Run `autonomous-gate` before progressing it.
-
-The skills maintain durable files so the next agent can continue from evidence
-and state rather than chat history.
-
-## Contributing
-
-The public package source lives in `skills/`. Every skill has a concise
-`SKILL.md` and generated `agents/openai.yaml`; only `autonomous-init` includes
-state-template assets. `autonomous-gate/references/` contains its gate
-methodology and mode examples; each real gate still derives checks from the
-current project and evidence.
+The framework is deliberately strict about two things: unknown facts stay
+unknown until resolved, and a passing claim needs evidence.
 
 ## Framework Reference
 
-[`docs/framework/`](docs/framework/) holds the project-document concepts that
-informed the Harness: product context, guardrails, architecture, data, design,
-testing, and learnings. They explain the framework; they are not installed by
-the skills or required in a consuming project.
+The complete operating model stays in this repository under
+[`docs/framework/`](docs/framework/). Start with:
+
+| Document | Purpose |
+|---|---|
+| [AUTONOMOUS.md](docs/framework/AUTONOMOUS.md) | Delivery flow, roles, artifacts, gates, and principles. |
+| [HERMES.md](docs/framework/HERMES.md) | Operator, delegation, worktree, and recovery model. |
+| [ROLE.md](docs/framework/ROLE.md) | Coding-agent startup and working rules. |
+| [AGENTS.md](docs/framework/AGENTS.md) | Project roles, boundaries, and workspace model. |
+| [SUBAGENT.md](docs/framework/SUBAGENT.md) | Shared vocabulary and handoff contract. |
+| [PROJECT.md](docs/framework/PROJECT.md) and [GUARDRAILS.md](docs/framework/GUARDRAILS.md) | Product truth and non-negotiable safety rules. |
+
+Architecture, data, design, testing, version-control, debugging, commit, and
+learning references are indexed in [`docs/framework/README.md`](docs/framework/README.md).
+
+## Install the Agent Bridge
+
+The framework remains here for the operator and Hermes to read. A consuming
+product installs only the skills:
+
+```bash
+cd existing-product
+npx skills add Ntrakiyski/autonomous-harness -a codex
+```
+
+This adds four procedures under `.agents/skills/`:
+
+| Skill | Agent responsibility |
+|---|---|
+| `autonomous-init` | Map existing project truth and create `.autonomous/` state. |
+| `autonomous-spec` | Turn approved scope into one Spec Kit feature. |
+| `autonomous-deliver` | Deliver one approved vertical slice with evidence and a handoff. |
+| `autonomous-gate` | Make a PRD, specification, code, or ship decision from evidence. |
+
+No framework files are copied into the product repository. The first-run skill
+gives the operator the framework handoff while preserving the product's own
+documentation as its source of truth.
+
+## First Run
+
+1. The operator reads the framework reference and configures Hermes.
+2. Hermes directs a coding agent to run:
+
+   ```text
+   Use $autonomous-init to set up autonomous delivery in this project.
+   ```
+
+3. When the project is ready to specify work, initialize Spec Kit once:
+
+   ```bash
+   specify init --here --force --integration codex --integration-options="--skills"
+   ```
+
+4. Hermes drives the scoped feature through `autonomous-spec`,
+   `autonomous-deliver`, and `autonomous-gate`.
+
+The two artifact boundaries remain separate:
+
+```text
+.autonomous/                    # Harness lifecycle state, evidence, handoffs
+.specify/                        # Spec Kit configuration and templates
+specs/001-feature-slug/          # Spec Kit feature artifacts
+```
+
+## Framework and Skill Boundaries
+
+| Stays in this repository | Installs into a product |
+|---|---|
+| Framework contracts, Hermes operations, templates, and rationale | Four skill folders under `.agents/skills/` |
+| Gate methodology and mode prompts | The matching gate reference files |
+| Documentation for operators and contributors | `.autonomous/` project state created by `autonomous-init` |
+
+The gate skill owns its check prompts in
+[`skills/autonomous-gate/references/`](skills/autonomous-gate/references/).
+They guide dynamic, project-specific gates; they are never copied as a fixed
+pass/fail checklist.
+
+## Repository Layout
+
+```text
+README.md                 # Operator entry point
+docs/framework/           # Full Hermes-led framework
+skills/                   # Skills.sh installable agent bridge
+```
+
+[![skills.sh](https://skills.sh/b/Ntrakiyski/autonomous-harness)](https://skills.sh/Ntrakiyski/autonomous-harness)

@@ -9,18 +9,20 @@ Set up durable Harness state without replacing the repository's existing truth.
 
 ## Procedure
 
-1. Read the root `AGENTS.md` if present. Inspect the project for architecture,
+1. Read `references/framework-bridge.md`. On first setup, include its
+   framework URL in the handoff to the operator and Hermes.
+2. Read the root `AGENTS.md` if present. Inspect the project for architecture,
    design, database, testing, and product documents.
-2. Inspect `AGENTS.md`, `.autonomous/`, `.specify/`, and `specs/`. Treat every
+3. Inspect `AGENTS.md`, `.autonomous/`, `.specify/`, and `specs/`. Treat every
    existing file as user-owned.
-3. If `.autonomous/` already exists, read it and report which expected files
+4. If `.autonomous/` already exists, read it and report which expected files
    are missing. Ask before replacing a conflicting Harness file.
-4. Create `.autonomous/` with these files from `assets/project-state/`:
+5. Create `.autonomous/` with these files from `assets/project-state/`:
    `PROJECT.md`, `CONTEXT.md`, and `GUARDRAILS.md`. Create `phases/`,
    `evidence/`, and `retrospectives/` directories.
-5. Create root `AGENTS.md` from the asset only when no root `AGENTS.md` exists.
+6. Create root `AGENTS.md` from the asset only when no root `AGENTS.md` exists.
    Otherwise leave it unchanged and record it in `CONTEXT.md`.
-6. Create `.autonomous/state.json` only after the project inspection succeeds:
+7. Create `.autonomous/state.json` only after the project inspection succeeds:
 
    ```json
    {
@@ -40,8 +42,9 @@ Set up durable Harness state without replacing the repository's existing truth.
 
    Replace the timestamp token with the actual current time. If `.specify/`
    exists, set `spec_kit_initialized` to `true`.
-7. Report whether `.specify/` exists. Do not create, edit, move, or copy
-   `.specify/`: `autonomous-spec` is blocked until Spec Kit initializes it.
+8. Report whether `.specify/` exists and the framework handoff. Do not create,
+   edit, move, or copy `.specify/`: `autonomous-spec` is blocked until Spec Kit
+   initializes it.
 
 ## State Rules
 
