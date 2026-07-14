@@ -34,7 +34,8 @@ npx skills add Ntrakiyski/autonomous-harness -a codex
 `autonomous-init` inspects the project and creates its initial operating state.
 It never overwrites existing project instructions or documentation without
 confirmation. It also detects whether Spec Kit has been initialized. Before a
-project can use `autonomous-spec`, it must run Spec Kit initialization; that
+project can use `autonomous-spec`, it must run Spec Kit initialization with
+`--force` because the project already contains installed Harness skills. That
 creates the project-root `.specify/` directory and its managed configuration.
 Subsequent skills operate against that state and the project's normal source
 tree.

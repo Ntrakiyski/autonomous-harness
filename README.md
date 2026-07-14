@@ -1,244 +1,102 @@
 # Autonomous Harness
 
-> **Turn a swarm of AI agents into a disciplined software delivery pipeline.**
-> One ROLE.md file transforms a general-purpose agent into a specialized
-> team member. The harness keeps them aligned on architecture, design,
-> quality, and consistency — from ticket to production.
+> Turn agent work into a disciplined, evidence-backed delivery flow inside an
+> existing software project.
 
----
+Autonomous Harness is a project-local skill package, not a project template to
+clone. It adds reusable delivery procedures while preserving the product's own
+architecture, design, documentation, and source code.
 
-## What It Is
+## Install
 
-A templated framework for running autonomous AI agent software development
-pipelines. It defines **roles, principles, gates, checklists, and contracts**
-that make a team of independent AI agents behave like a single engineering
-organization.
-
-**Not a tool. Not a SaaS.** It's a set of files you copy into your project.
-Every agent reads them at session start and they become project-aware.
-
-```
-Clean session → read 14 framework files → agent is ready
-```
-
----
-
-## Prerequisites
-
-You need three tools installed before using the harness:
-
-### 1. Hermes Agent
-
-The orchestrator that spawns agents, manages the kanban board, and runs
-the pipeline.
+From the root of an existing project:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash
+npx skills add Ntrakiyski/autonomous-harness -a codex
 ```
 
-Verify: `hermes --version`
+This installs the four skills in `.agents/skills/` for Codex:
 
-### 2. Codex CLI (or Claude Code)
+- `autonomous-init` — adopt the Harness and create project state.
+- `autonomous-spec` — turn approved scope into a Spec Kit feature.
+- `autonomous-deliver` — implement one approved vertical slice with evidence.
+- `autonomous-gate` — run an evidence-backed PRD, spec, code, or ship gate.
 
-The implementation agent that writes code. Codex is the primary; Claude
-Code is the fallback.
+## First Use
+
+Ask Codex to initialize the project:
+
+```text
+Use $autonomous-init to set up autonomous delivery in this project.
+```
+
+The initializer inspects existing instructions and documentation, then creates
+only Harness-owned state:
+
+```text
+.autonomous/
+├── PROJECT.md
+├── CONTEXT.md
+├── GUARDRAILS.md
+├── state.json
+├── phases/
+├── evidence/
+└── retrospectives/
+```
+
+It never overwrites an existing `AGENTS.md` or project document without asking.
+
+## Spec Kit
+
+`autonomous-spec` requires Spec Kit. Initialize it once in the project before
+creating a governed feature:
 
 ```bash
-# Codex CLI (OpenAI)
-npm install -g @openai/codex
-codex --version
-
-# Claude Code (Anthropic) — alternative
-npm install -g @anthropic-ai/claude-code
-claude --version
+specify init --here --force --integration codex --integration-options="--skills"
 ```
 
-### 3. Spec Kit (GitHub)
+Spec Kit owns `.specify/` and creates feature artifacts under
+`specs/<number>-<slug>/`. Harness does not copy or relocate those files; its
+phase manifest and lifecycle state link to them.
 
-Generates specs, plans, and tasks from PRDs using slash commands.
+`--force` permits Spec Kit to merge into the existing project after Harness
+skills have been installed. Review the merge output; the setup preserves the
+installed Harness skills alongside the Spec Kit skills.
 
-```bash
-# Install uv first (if not already installed):
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# Install Spec Kit CLI (replace vX.Y.Z with the latest release tag
-# from https://github.com/github/spec-kit/releases):
-uv tool install specify-cli --from git+https://github.com/github/spec-kit.git@vX.Y.Z
-
-# Initialize Spec Kit in your project:
-cd your-project
-specify init --integration copilot
+```text
+.agents/skills/                 # Autonomous Harness and Spec Kit skills
+.autonomous/                    # Harness-owned project and lifecycle state
+.specify/                       # Spec Kit configuration, templates, memory
+specs/001-feature-slug/         # Spec Kit feature: spec.md, plan.md, tasks.md
 ```
 
-After `specify init`, your AI coding agent will have access to these
-slash commands:
+## Lifecycle State
 
-| Command | What it does |
-|---|---|
-| `/speckit.constitution` | Create project governing principles |
-| `/speckit.specify` | Define what to build (requirements, user stories) |
-| `/speckit.clarify` | Resolve ambiguities before planning |
-| `/speckit.plan` | Technical implementation plan with tech stack |
-| `/speckit.tasks` | Generate executable task list |
-| `/speckit.analyze` | Cross-artifact consistency check |
-| `/speckit.implement` | Execute all tasks to build the feature |
-| `/speckit.checklist` | Generate quality checklists |
-| `/speckit.converge` | Assess codebase against spec, add remaining work |
+`.autonomous/state.json` is the current machine-readable lifecycle record. It
+contains the Harness initialization state, Spec Kit availability, active
+milestone, milestone statuses, feature directories, and latest gate result.
 
-The harness uses Spec Kit at **step 4** of the pipeline — it runs the
-full flow (`constitution → specify → clarify → plan → tasks → analyze`)
-for each phase independently. See `AUTONOMOUS.md` for the full pipeline.
+It is current state, not an activity log. Product context remains in
+`PROJECT.md`; feature requirements remain in Spec Kit; raw verification output
+remains in `.autonomous/evidence/`.
 
-To check for updates: `specify self check`
-To upgrade: `specify self upgrade`
+## Delivery Flow
 
----
+1. Initialize Harness with `autonomous-init`.
+2. Approve scope and initialize Spec Kit.
+3. Run `autonomous-spec` for one vertical feature.
+4. Run `autonomous-deliver` for an approved task or feature slice.
+5. Run `autonomous-gate` before progressing it.
 
-## How It Works
+The skills maintain durable files so the next agent can continue from evidence
+and state rather than chat history.
 
-```
-┌──────────┐    ┌───────────┐    ┌────────────┐    ┌──────────┐
-│  Manager │───▶│  Planner  │───▶│  PRD Gate  │───▶│   Spec   │
-│ (CEO)    │    │ Architect │    │ Checklist  │    │   Kit    │
-│          │    │ Designer  │    │  30 items  │    │          │
-└──────────┘    └───────────┘    └────────────┘    └──────────┘
-                                                        │
-                                                        ▼
-┌──────────┐    ┌───────────┐    ┌────────────┐    ┌──────────┐
-│  Deploy  │◀───│ Ship Gate │◀───│   Tester   │◀───│ Developer│
-│ (Vercel) │    │ Checklist │    │  + CI/CD   │    │ + Codex  │
-│          │    │           │    │            │    │ + Husky  │
-└──────────┘    └───────────┘    └────────────┘    └──────────┘
-      │
-      ▼
-┌──────────┐
-│Retro-    │
-│spective  │
-│+ Learn   │
-└──────────┘
-```
+## Contributing
 
----
+The public package source lives in `skills/`. Every skill has a concise
+`SKILL.md` and generated `agents/openai.yaml`; only `autonomous-init` includes
+state-template assets. Validate skills with the `skill-creator` validator, then
+install them into a clean fixture project through the Skills CLI.
 
-## File Map
-
-Files in the order every agent reads them at session start:
-
-| File | Purpose |
-|---|---|
-| [`framework/PROJECT.md`](framework/PROJECT.md) | The founding idea — problem, solution, success outcomes. Written before any PRD. |
-| [`framework/GUARDRAILS.md`](framework/GUARDRAILS.md) | Non-negotiable safety rules — git, filesystem, deploy, data, agent conduct |
-| [`framework/ROLE.md`](framework/ROLE.md) | Agent bootstrap — 14-step startup sequence **(do not change)** |
-| [`framework/AGENTS.md`](framework/AGENTS.md) | Project roles, workspace, delivery model |
-| [`framework/ARCHITECTURE.md`](framework/ARCHITECTURE.md) | Module boundaries, data flow, APIs, seams |
-| [`framework/DATABASE.md`](framework/DATABASE.md) | Models, relationships, migrations |
-| [`framework/DESIGN.md`](framework/DESIGN.md) | Visual token spec (Google DESIGN.md format) |
-| [`framework/TESTING.md`](framework/TESTING.md) | Testing strategy — pyramid, states, evidence, E2E |
-| [`framework/VERSION-CONTROL.md`](framework/VERSION-CONTROL.md) | Git workflow, branches, PRs, CI/CD, code review |
-| [`framework/COMMIT-TEMPLATE.md`](framework/COMMIT-TEMPLATE.md) | Commit format + learnings extraction |
-| [`framework/SUBAGENT.md`](framework/SUBAGENT.md) | Inter-agent contract — vocabulary, checklist, handoff |
-| [`framework/DEBUGGING.md`](framework/DEBUGGING.md) | Structured logging, error traceability, quick fixes |
-| [`framework/LEARNINGS.md`](framework/LEARNINGS.md) | Accumulated knowledge from retrospectives |
-| [`AUTONOMOUS.md`](AUTONOMOUS.md) | Full pipeline contract — 11 steps, role definitions, guardrails |
-| [`framework/HERMES.md`](framework/HERMES.md) | Hermes operations — dispatcher, spawning, worktrees |
-| [`checklists/`](checklists/) | Dynamic per-phase checklists (PRD, Spec, Code, Ship) |
-
----
-
-## Principles
-
-- **The deletion test.** If removing a module spreads complexity, it was
-  earning its keep.
-- **Tracer bullets, not horizontal layers.** Every ticket is a vertical
-  slice — demoable on its own.
-- **Consistency over novelty.** The codebase reads like one person wrote it.
-- **Evidence, not verdicts.** Every test result is backed by artifacts.
-- **The reviewer is adversarial.** Assume it's wrong until proven right.
-- **Durable state over chat memory.** Everything lives in files.
-
----
-
-## Tech Stack
-
-| Layer | Tool | Link |
-|---|---|---|
-| **Orchestrator** | Hermes Agent | [github.com/NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) |
-| **Implementation** | Codex CLI | [github.com/openai/codex](https://github.com/openai/codex) |
-| **Quality gates** | Husky | [github.com/typicode/husky](https://github.com/typicode/husky) |
-| **Testing** | Playwright | [playwright.dev](https://playwright.dev) |
-| **Design** | Google DESIGN.md | [github.com/google-labs-code/design.md](https://github.com/google-labs-code/design.md) |
-| **Specs** | Spec Kit | [github.com/github/spec-kit](https://github.com/github/spec-kit) |
-| **Deploy** | Vercel | [vercel.com](https://vercel.com) |
-| **Research** | Feynman | [github.com/companion-inc/feynman](https://github.com/companion-inc/feynman) |
-| **Book extraction** | book-to-skill | [github.com/virgiliojr94/book-to-skill](https://github.com/virgiliojr94/book-to-skill) |
-| **Backlog mgmt** | ClawSweeper | [github.com/openclaw/clawsweeper](https://github.com/openclaw/clawsweeper) |
-| **Auto-review** | ClawPatch | [github.com/openclaw/clawpatch](https://github.com/openclaw/clawpatch) |
-
----
-
-## Quick Start
-
-```bash
-# 1. Clone the harness into your project
-cd your-project
-git clone https://github.com/Ntrakiyski/autonomous-harness.git
-
-# 2. Ask your AI agent:
-"What is autonomous-harness and what are my first steps?"
-```
-
-The agent will read ROLE.md, understand the framework, and guide you
-through filling in the project-specific templates.
-
----
-
-## Startup Sequence
-
-Every agent reads these files in order at session start:
-
-```
-1. PROJECT.md        — What we're building and why
-2. GUARDRAILS.md     — The rules you never break
-3. ROLE.md           — How to become this agent
-4. AGENTS.md         — Who I am, what I can touch
-5. ARCHITECTURE.md   — How the system is built
-6. DATABASE.md       — How data is stored
-7. DESIGN.md         — How things look
-8. TESTING.md        — How we test
-9. VERSION-CONTROL.md — How we use git
-10. COMMIT-TEMPLATE.md — How we write commits
-11. SUBAGENT.md      — How we work together
-12. DEBUGGING.md     — How we debug
-13. LEARNINGS.md     — What we've learned
-14. AUTONOMOUS.md    — The full pipeline contract
-```
-
----
-
-## Academic Foundation
-
-Pipeline design validated through Feynman PaperRank against 50+ papers.
-Key findings: CI/CD empirically improves software quality; multi-agent
-architectures are an emerging field with no established git workflows —
-this harness pioneers agent-specific version control patterns.
-
----
-
-## Inspired By
-
-- [Matt Pocock's skills](https://github.com/mattpocock/skills) (169K ⭐) — `codebase-design`, `to-spec`, `to-tickets`, `implement`, `tdd`, `code-review`, `grill-me`
-- [Google DESIGN.md](https://github.com/google-labs-code/design.md) — Machine-readable visual token spec
-- [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882) (Robert C. Martin) — Extracted as a Hermes skill via [book-to-skill](https://github.com/virgiliojr94/book-to-skill)
-- [Feynman](https://github.com/companion-inc/feynman) (Companion Inc.) — Research agent for paper ranking and synthesis
-- [ClawSweeper](https://github.com/openclaw/clawsweeper) / [ClawPatch](https://github.com/openclaw/clawpatch) (OpenClaw) — Automated backlog cleanup and PR management
-- [Skills Hub](https://skills.sh) — 872K+ agent skills, by Vercel
-- [ClawHub](https://clawhub.ai) — Skills and plugins marketplace, by OpenClaw
-- [Husky](https://github.com/typicode/husky) — Git hooks for pre-commit quality gates
-- [Playwright](https://playwright.dev) — E2E testing for the modern web
-- [50 Developer Acronyms](https://dev.to/eleftheriabatsou/50-acronyms-developers-use-6kl) — Vocabulary that shaped the subagent contract
-
----
-
-## License
-
-MIT — use it, modify it, ship with it.
+The older `AUTONOMOUS.md`, `framework/`, and `checklists/` directories remain
+as contributor reference material while the package evolves.

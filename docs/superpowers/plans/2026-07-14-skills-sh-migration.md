@@ -49,12 +49,12 @@ Keep `AUTONOMOUS.md`, `framework/`, and `checklists/` as contributor references 
 
 **Produces:** `.autonomous/{PROJECT,CONTEXT,GUARDRAILS}.md`, `.autonomous/state.json`, `.autonomous/{phases,evidence,retrospectives}/`, and root `AGENTS.md` only when absent.
 
-- [ ] Initialize the skill with `skill-creator`, choosing `assets` as its only resource directory and creating UI metadata for “Autonomous Init.”
-- [ ] Write a body that reads existing instructions, maps existing project documents, inspects `AGENTS.md`, `.autonomous/`, `.specify/`, and `specs/`, preserves all existing files, asks before conflicts, creates Harness state and `state.json`, and reports whether Spec Kit is initialized without creating `.specify/`.
-- [ ] Initialize `state.json` with `schema_version: 1`, a `harness` object containing `initialized_at`, `skills_version`, and `spec_kit_initialized`, and a `project` object containing `status`, `active_milestone`, and `milestones`. Set `status` to `initialized`, `active_milestone` to `null`, and `milestones` to an empty array.
-- [ ] Create assets with these headings: `PROJECT.md`: Problem, Users, Outcomes, Out of Scope, Open Questions; `CONTEXT.md`: Source Documents, Domain Vocabulary, Architecture and Design References, Known Constraints; `GUARDRAILS.md`: data/secrets, destructive actions, approved scope, evidence, unknown facts; `phase-manifest.md`: Feature Directory, Status, Blockers, Evidence, Handoff.
-- [ ] Run `quick_validate.py` for `skills/autonomous-init`, check that `agents/openai.yaml` and `assets/project-state/GUARDRAILS.md` exist, and expect `Skill is valid!`.
-- [ ] Commit with `feat(skills): add project initializer`.
+- [x] Initialize the skill with `skill-creator`, choosing `assets` as its only resource directory and creating UI metadata for “Autonomous Init.”
+- [x] Write a body that reads existing instructions, maps existing project documents, inspects `AGENTS.md`, `.autonomous/`, `.specify/`, and `specs/`, preserves all existing files, asks before conflicts, creates Harness state and `state.json`, and reports whether Spec Kit is initialized without creating `.specify/`.
+- [x] Initialize `state.json` with `schema_version: 1`, a `harness` object containing `initialized_at`, `skills_version`, and `spec_kit_initialized`, and a `project` object containing `status`, `active_milestone`, and `milestones`. Set `status` to `initialized`, `active_milestone` to `null`, and `milestones` to an empty array.
+- [x] Create assets with these headings: `PROJECT.md`: Problem, Users, Outcomes, Out of Scope, Open Questions; `CONTEXT.md`: Source Documents, Domain Vocabulary, Architecture and Design References, Known Constraints; `GUARDRAILS.md`: data/secrets, destructive actions, approved scope, evidence, unknown facts; `phase-manifest.md`: Feature Directory, Status, Blockers, Evidence, Handoff.
+- [x] Run `quick_validate.py` for `skills/autonomous-init`, check that `agents/openai.yaml` and `assets/project-state/GUARDRAILS.md` exist, and expect `Skill is valid!`.
+- [x] Commit with `feat(skills): add project initializer`.
 
 ### Task 2: Add `autonomous-spec`
 
@@ -67,10 +67,10 @@ Keep `AUTONOMOUS.md`, `framework/`, and `checklists/` as contributor references 
 
 **Produces:** `specs/<number>-<slug>/{spec,plan,tasks}.md` through Spec Kit and `.autonomous/phases/phase-N.md` pointing to that directory.
 
-- [ ] Initialize the skill with `skill-creator` and UI metadata for “Autonomous Spec.”
-- [ ] Write a body that reads project state and approved scope, blocks if scope is unresolved or `.specify/` is missing, runs constitution → specify → clarify → plan → tasks → analyze through installed Codex Spec Kit skills, verifies `spec.md`, `plan.md`, and `tasks.md` in one `specs/` feature directory, writes its exact path and blockers into a phase manifest, then adds that path to the active milestone and sets the milestone status to `in_progress`.
-- [ ] State explicitly that it never writes a second spec, plan, or task format under `.autonomous/`.
-- [ ] Run `quick_validate.py`, verify `agents/openai.yaml`, expect `Skill is valid!`, and commit with `feat(skills): add Spec Kit bridge`.
+- [x] Initialize the skill with `skill-creator` and UI metadata for “Autonomous Spec.”
+- [x] Write a body that reads project state and approved scope, blocks if scope is unresolved or `.specify/` is missing, runs constitution → specify → clarify → plan → tasks → analyze through installed Codex Spec Kit skills, verifies `spec.md`, `plan.md`, and `tasks.md` in one `specs/` feature directory, writes its exact path and blockers into a phase manifest, then adds that path to the active milestone and sets the milestone status to `in_progress`.
+- [x] State explicitly that it never writes a second spec, plan, or task format under `.autonomous/`.
+- [x] Run `quick_validate.py`, verify `agents/openai.yaml`, expect `Skill is valid!`, and commit with `feat(skills): add Spec Kit bridge`.
 
 ### Task 3: Add `autonomous-deliver`
 
@@ -83,10 +83,10 @@ Keep `AUTONOMOUS.md`, `framework/`, and `checklists/` as contributor references 
 
 **Produces:** the requested vertical slice, raw evidence under `.autonomous/evidence/`, `handoff.json`, and an updated phase manifest.
 
-- [ ] Initialize the skill with `skill-creator` and UI metadata for “Autonomous Deliver.”
-- [ ] Write a body that requires the agent to read the active feature, guardrails, instructions, blockers, and current `state.json`; confirm one in-scope vertical slice; inspect existing patterns; plan seam-level tests; implement the smallest compliant change; retain raw logs, screenshots, or traces; update the phase manifest; and set the active milestone to `blocked` only when its handoff is blocked.
-- [ ] Specify this exact `handoff.json` contract: `ticket_id`, `status`, `changed_files`, `tests_run`, `tests_passed`, `decisions`, `blockers`, `needs_review`, and `evidence_paths`.
-- [ ] Run `quick_validate.py`, verify `agents/openai.yaml`, expect `Skill is valid!`, and commit with `feat(skills): add delivery workflow`.
+- [x] Initialize the skill with `skill-creator` and UI metadata for “Autonomous Deliver.”
+- [x] Write a body that requires the agent to read the active feature, guardrails, instructions, blockers, and current `state.json`; confirm one in-scope vertical slice; inspect existing patterns; plan seam-level tests; implement the smallest compliant change; retain raw logs, screenshots, or traces; update the phase manifest; and set the active milestone to `blocked` only when its handoff is blocked.
+- [x] Specify this exact `handoff.json` contract: `ticket_id`, `status`, `changed_files`, `tests_run`, `tests_passed`, `decisions`, `blockers`, `needs_review`, and `evidence_paths`.
+- [x] Run `quick_validate.py`, verify `agents/openai.yaml`, expect `Skill is valid!`, and commit with `feat(skills): add delivery workflow`.
 
 ### Task 4: Add `autonomous-gate`
 
@@ -99,10 +99,10 @@ Keep `AUTONOMOUS.md`, `framework/`, and `checklists/` as contributor references 
 
 **Produces:** `gate-prd.md`, `gate-spec.md`, `gate-code.md`, or `gate-ship.md` beside the phase manifest, with a pass, fail, or blocked result.
 
-- [ ] Initialize the skill with `skill-creator` and UI metadata for “Autonomous Gate.”
-- [ ] Write a body that selects one of four modes, reads the relevant artifact and project constraints, derives specific checks from them, writes a dynamic checklist, links every pass to a source path or evidence file, treats missing evidence as fail, updates the phase manifest, and records `last_gate` in `state.json`. A passed ship gate sets the active milestone to `complete`; a passed earlier gate sets it to `ready_for_gate`.
-- [ ] State explicitly that this skill never deploys, merges, or waives a failed check.
-- [ ] Run `quick_validate.py`, verify `agents/openai.yaml`, expect `Skill is valid!`, and commit with `feat(skills): add evidence gate`.
+- [x] Initialize the skill with `skill-creator` and UI metadata for “Autonomous Gate.”
+- [x] Write a body that selects one of four modes, reads the relevant artifact and project constraints, derives specific checks from them, writes a dynamic checklist, links every pass to a source path or evidence file, treats missing evidence as fail, updates the phase manifest, and records `last_gate` in `state.json`. A passed ship gate sets the active milestone to `complete`; a passed earlier gate sets it to `ready_for_gate`.
+- [x] State explicitly that this skill never deploys, merges, or waives a failed check.
+- [x] Run `quick_validate.py`, verify `agents/openai.yaml`, expect `Skill is valid!`, and commit with `feat(skills): add evidence gate`.
 
 ### Task 5: Replace Clone-First Documentation
 
@@ -111,25 +111,25 @@ Keep `AUTONOMOUS.md`, `framework/`, and `checklists/` as contributor references 
 - Modify: `README.md`
 - Modify: `docs/superpowers/specs/2026-07-14-skills-sh-migration-design.md`
 
-- [ ] Replace the quick start with the following commands:
+- [x] Replace the quick start with the following commands:
 
 ```bash
 cd existing-product
 npx skills add Ntrakiyski/autonomous-harness -a codex
 # Ask Codex: Use $autonomous-init to set up autonomous delivery in this project.
-specify init --here --integration codex --integration-options="--skills"
+specify init --here --force --integration codex --integration-options="--skills"
 ```
 
-- [ ] Explain exact ownership: Harness installs in `.agents/skills/`; initialization creates `.autonomous/`; Spec Kit initialization creates `.specify/`; Spec Kit feature commands create `specs/<number>-<slug>/`; phase manifests only link to those artifacts.
-- [ ] Run this contradiction check before committing:
+- [x] Explain exact ownership: Harness installs in `.agents/skills/`; initialization creates `.autonomous/`; Spec Kit initialization creates `.specify/`; Spec Kit feature commands create `specs/<number>-<slug>/`; phase manifests only link to those artifacts.
+- [x] Run this contradiction check before committing:
 
 ```bash
-rg -n -i 'clone the harness|per-phase.*\.specify|\.autonomous/phases/.+spec\.md|fallback.*Spec Kit' README.md docs/superpowers/specs
+rg -n -i 'clone the harness|per-phase.*\.specify|\.autonomous/phases/.+spec\.md|fallback.*Spec Kit' README.md
 ```
 
 Expected: no outdated clone-first or competing-artifact claim.
 
-- [ ] Commit with `docs(skills): document install-first workflow`.
+- [x] Commit with `docs(skills): document install-first workflow`.
 
 ### Task 6: Verify Package Discovery and Artifact Boundaries
 
@@ -137,13 +137,13 @@ Expected: no outdated clone-first or competing-artifact claim.
 
 - Create: `tests/fixtures/skills-consumer/README.md`
 
-- [ ] Create the fixture readme with this exact content: `# Skills Consumer Fixture`, followed by one paragraph explaining that it verifies project-local Autonomous Harness installation and its separation from Spec Kit artifacts.
-- [ ] Run `quick_validate.py` for `autonomous-init`, `autonomous-spec`, `autonomous-deliver`, and `autonomous-gate`; expect four `Skill is valid!` lines.
-- [ ] From `tests/fixtures/skills-consumer`, run `npx skills add ../.. --list`, then install the four named skills with `npx skills add ../.. --skill autonomous-init --skill autonomous-spec --skill autonomous-deliver --skill autonomous-gate -a codex -y`, then run `find .agents/skills -maxdepth 2 -name SKILL.md | sort`.
-- [ ] Expect all four skills in the list and four project-local `SKILL.md` files after installation.
-- [ ] Run `specify init --here --integration codex --integration-options="--skills"`; verify `.specify/` and `.agents/skills/` exist, while `.autonomous/specs` and `.specify/autonomous` do not exist.
-- [ ] Use `autonomous-init` and `autonomous-spec` on a small approved feature; verify that the phase manifest is under `.autonomous/phases/`, feature documents are under `specs/`, and `state.json` records the active milestone and feature directory.
-- [ ] Commit with `test(skills): add installation fixture`.
+- [x] Create the fixture readme with this exact content: `# Skills Consumer Fixture`, followed by one paragraph explaining that it verifies project-local Autonomous Harness installation and its separation from Spec Kit artifacts.
+- [x] From the repository root, run `quick_validate.py` for `autonomous-init`, `autonomous-spec`, `autonomous-deliver`, and `autonomous-gate`; expect four `Skill is valid!` lines.
+- [x] From `tests/fixtures/skills-consumer`, run `npx skills add ../../.. --list`, then install the four named skills with `npx skills add ../../.. --skill autonomous-init --skill autonomous-spec --skill autonomous-deliver --skill autonomous-gate -a codex -y`, then run `find .agents/skills -maxdepth 2 -name SKILL.md | sort`.
+- [x] Expect all four skills in the list and four project-local `SKILL.md` files after installation.
+- [x] Run `specify init --here --force --integration codex --integration-options="--skills"`; verify `.specify/` and `.agents/skills/` exist, while `.autonomous/specs` and `.specify/autonomous` do not exist.
+- [x] Use `autonomous-init` and `autonomous-spec` on a small approved feature; verify that the phase manifest is under `.autonomous/phases/`, feature documents are under `specs/`, and `state.json` records the active milestone and feature directory.
+- [x] Commit with `test(skills): add installation fixture`.
 
 ## Plan Self-Review
 
