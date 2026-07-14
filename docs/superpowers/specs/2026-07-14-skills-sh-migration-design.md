@@ -82,6 +82,7 @@ client-product/
 │   ├── PROJECT.md                # product intent and scope boundaries
 │   ├── CONTEXT.md                # domain vocabulary and source-document map
 │   ├── GUARDRAILS.md             # shared delivery safety rules
+│   ├── state.json                # current Harness and project lifecycle state
 │   ├── phases/
 │   │   └── phase-N.md            # status and pointer to specs/001-feature-slug/
 │   ├── evidence/
@@ -94,6 +95,38 @@ where they already live. It does not copy them into `.autonomous/`.
 `.specify/` and `specs/` are owned by Spec Kit; Autonomous Harness never
 duplicates or relocates their files.
 
+## Lifecycle State
+
+`.autonomous/state.json` is the single machine-readable record of current
+Harness and project lifecycle state. It is not a log and it does not duplicate
+product facts from `PROJECT.md` or feature facts from Spec Kit.
+
+```json
+{
+  "schema_version": 1,
+  "harness": {
+    "initialized_at": "2026-07-14T00:00:00Z",
+    "skills_version": "0.1.0",
+    "spec_kit_initialized": false
+  },
+  "project": {
+    "status": "initialized",
+    "active_milestone": null,
+    "milestones": []
+  }
+}
+```
+
+Each milestone has `id`, `status`, `started_at`, `completed_at`,
+`feature_directories`, and `last_gate`. Valid statuses are `planned`,
+`in_progress`, `blocked`, `ready_for_gate`, and `complete`.
+
+Every skill reads state before acting and updates only the fields it owns after
+its output has been verified: initializer creates it, spec starts or updates a
+milestone, delivery records active or blocked work, and gate records the latest
+verdict. V1 intentionally has no `logs.json`; add append-only `events.jsonl`
+only when a dashboard or audit history needs it.
+
 ## V1 Skills
 
 ### `autonomous-init`
@@ -103,6 +136,8 @@ duplicates or relocates their files.
   answers for missing project facts.
 - **Output:** `.autonomous/` state, a source-document map, and a thin `AGENTS.md`
   only when one does not already exist.
+- **Lifecycle state:** Create `state.json` with the schema above and record
+  whether Spec Kit has been initialized.
 - **Spec Kit boundary:** Detect `.specify/`. If it is absent, explain that
   `autonomous-spec` is unavailable until the user initializes Spec Kit in the
   project; never create or edit `.specify/` directly.
@@ -118,6 +153,8 @@ duplicates or relocates their files.
 - **Output:** A Spec Kit feature directory at `specs/<number>-<slug>/` with its
   `spec.md`, `plan.md`, and `tasks.md`; a `.autonomous/phases/phase-N.md`
   manifest links to that directory and records status and blockers.
+- **Lifecycle state:** Record the feature directory on its milestone and set
+  the milestone to `in_progress` only after all three Spec Kit artifacts exist.
 - **Safety:** Reject unresolved scope; do not expand a phase beyond the approved
   scope. Require Spec Kit for this skill. If the project is not initialized,
   report the exact setup blocker rather than generating a competing artifact
@@ -130,6 +167,8 @@ duplicates or relocates their files.
   previous blocking handoffs.
 - **Output:** The requested implementation, verification evidence, and
   `handoff.json`.
+- **Lifecycle state:** Set the active milestone to `blocked` when a handoff is
+  blocked; otherwise retain `in_progress` until a gate evaluates the work.
 - **Safety:** Read before writing, preserve project conventions, test at seams,
   stop on blocked or unsafe work.
 
@@ -140,6 +179,9 @@ duplicates or relocates their files.
   evidence.
 - **Output:** A dynamic, phase-specific checklist and an evidence-backed
   pass/fail result.
+- **Lifecycle state:** Record the latest gate path and verdict; a passed ship
+  gate marks the milestone `complete`, while a passed earlier gate sets
+  `ready_for_gate` for the next boundary.
 - **Safety:** A missing artifact or missing evidence is not a pass. The skill
   reports gaps; it does not self-waive them.
 
