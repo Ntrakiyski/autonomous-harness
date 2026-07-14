@@ -69,15 +69,17 @@ only the small templates it must create.
 client-product/
 ├── AGENTS.md                     # thin project entrypoint and local rules
 ├── .agents/skills/               # project-local installed skills
+├── .specify/                     # Spec Kit configuration, templates, and memory
+├── specs/                        # Spec Kit-owned feature artifacts
+│   └── 001-feature-slug/
+│       ├── spec.md
+│       ├── plan.md
+│       └── tasks.md
 ├── .autonomous/
 │   ├── PROJECT.md                # product intent and scope boundaries
 │   ├── CONTEXT.md                # domain vocabulary and source-document map
 │   ├── phases/
-│   │   └── phase-N/
-│   │       ├── spec.md
-│   │       ├── plan.md
-│   │       ├── tasks.md
-│   │       └── handoff.json
+│   │   └── phase-N.md            # status and pointer to specs/001-feature-slug/
 │   ├── evidence/
 │   └── retrospectives/
 └── docs/                         # existing architecture/design/product docs
@@ -85,6 +87,8 @@ client-product/
 
 The initializer references existing architecture, design, and database docs
 where they already live. It does not copy them into `.autonomous/`.
+`.specify/` and `specs/` are owned by Spec Kit; Autonomous Harness never
+duplicates or relocates their files.
 
 ## V1 Skills
 
@@ -104,12 +108,13 @@ where they already live. It does not copy them into `.autonomous/`.
 - **Trigger:** Turn approved scope into one independently shippable phase.
 - **Inputs:** Approved scope, project state, and referenced architecture/design
   constraints.
-- **Output:** `.autonomous/phases/phase-N/{spec,plan,tasks}.md` plus explicit
-  blockers.
+- **Output:** A Spec Kit feature directory at `specs/<number>-<slug>/` with its
+  `spec.md`, `plan.md`, and `tasks.md`; a `.autonomous/phases/phase-N.md`
+  manifest links to that directory and records status and blockers.
 - **Safety:** Reject unresolved scope; do not expand a phase beyond the approved
-  scope. Use Spec Kit when it is configured for the target project; otherwise
-  create the same three artifacts from the skill's built-in procedure and
-  record that fallback in the phase handoff.
+  scope. Require Spec Kit for this skill. If the project is not initialized,
+  report the exact setup blocker rather than generating a competing artifact
+  format.
 
 ### `autonomous-deliver`
 
@@ -139,6 +144,7 @@ where they already live. It does not copy them into `.autonomous/`.
 | `AUTONOMOUS.md` | Split across the four skill workflows; retain a concise contributor reference. |
 | `framework/PROJECT.md`, `AGENTS.md` | Initializer assets that become product-specific state. |
 | Architecture, database, design, and testing templates | Referenced project documents; do not make them always-loaded skill content. |
+| Spec Kit phase instructions | Keep `.specify/` and `specs/<number>-<slug>/` as Spec Kit-owned state; record only a link and delivery status in `.autonomous/phases/`. |
 | `checklists/` | `autonomous-gate` generation and audit procedure. |
 | `SUBAGENT.md` handoff format | `autonomous-deliver` output contract. |
 | `GUARDRAILS.md` | Shared guardrail reference loaded by every V1 skill. |
@@ -151,16 +157,20 @@ where they already live. It does not copy them into `.autonomous/`.
 2. Run `quick_validate.py` for every skill.
 3. Install the package in a clean fixture repository using the Skills CLI,
    targeting Codex project scope.
-4. Run the initializer without pre-existing instructions and with pre-existing
+4. Initialize Spec Kit in the fixture and confirm a new feature writes under
+   `specs/<number>-<slug>/`, while `.autonomous/phases/` contains only a
+   manifest that links to it.
+5. Run the initializer without pre-existing instructions and with pre-existing
    instructions; verify no silent overwrite occurs.
-5. Forward-test each skill against a small realistic task; check its files,
+6. Forward-test each skill against a small realistic task; check its files,
    handoff, and gate result rather than accepting prose claims.
-6. Update the install-first README, then publish a tagged GitHub release.
+7. Update the install-first README, then publish a tagged GitHub release.
 
 ## Non-Goals
 
 - Do not create one skill per human role.
 - Do not require Hermes, Vercel, Playwright, or Spec Kit merely to install.
+- Do not emulate or replace Spec Kit's feature-artifact format.
 - Do not move or duplicate a consuming project's existing documentation.
 - Do not automate deployment in V1.
 
@@ -171,7 +181,8 @@ where they already live. It does not copy them into `.autonomous/`.
 | Skills become giant copies of the current framework docs. | Keep each `SKILL.md` trigger-specific and concise; use references only when needed. |
 | Initializer overwrites existing project conventions. | Inspect first, preserve existing files, and require confirmation for conflicting writes. |
 | Generic state conflicts with real repositories. | Treat unknown as unknown and use a source-document map instead of duplicate templates. |
-| Tool availability varies by project. | Detect optional tools at runtime and state the fallback or blocker explicitly. |
+| Tool availability varies by project. | Detect optional tools at runtime and state the fallback or blocker explicitly; `autonomous-spec` blocks when its required Spec Kit dependency is absent. |
+| Harness and Spec Kit both create specs. | Spec Kit owns `.specify/` and `specs/`; Harness keeps only phase manifests that point to those files. |
 
 ## Implementation Sequence
 
