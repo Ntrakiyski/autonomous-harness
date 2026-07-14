@@ -14,6 +14,22 @@ on tests to verify their work. Therefore:
 - **Every test failure is a learning opportunity for LEARNINGS.md.**
 - **Zero tolerance for flaky tests.** A flaky test is a bug — fix or delete.
 
+### The Hard Rule: Evidence, Not Verdicts
+
+**A "pass" without evidence is not a pass.** This is the most
+important rule in this file. If you cannot produce a screenshot,
+a log file, a trace, or a written artifact that proves a test
+passed, then the test did not pass. Period.
+
+- "Tests passed" in chat → not a pass.
+- "I ran them and they're green" → not a pass.
+- A terminal output pasted into a comment → not a pass.
+
+A pass is: a file in `evidence/phase-N/` that anyone can open and
+verify without running the tests themselves. Screenshots for visual
+tests. Logs for backend tests. Playwright traces for E2E. Coverage
+reports for unit tests. If it's not in `evidence/`, it didn't happen.
+
 ## Test Pyramid (Agent-Specific)
 
 ```

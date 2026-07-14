@@ -125,8 +125,9 @@ To upgrade: `specify self upgrade`
 | File | Purpose |
 |---|---|
 | [`PROJECT.md`](framework/PROJECT.md) | The founding idea — problem, solution, success outcomes. Written before any PRD. |
+| [`GUARDRAILS.md`](framework/GUARDRAILS.md) | Non-negotiable safety rules — git, filesystem, deploy, data, agent conduct |
 | [`AUTONOMOUS.md`](AUTONOMOUS.md) | Full pipeline contract — 12 sections, 540 lines |
-| [`framework/ROLE.md`](framework/ROLE.md) | Agent bootstrap — 13-step startup sequence **(do not change)** |
+| [`framework/ROLE.md`](framework/ROLE.md) | Agent bootstrap — 14-step startup sequence **(do not change)** |
 | [`framework/AGENTS.md`](framework/AGENTS.md) | Project roles, workspace, delivery model |
 | [`framework/ARCHITECTURE.md`](framework/ARCHITECTURE.md) | Module boundaries, data flow, APIs, seams |
 | [`framework/DATABASE.md`](framework/DATABASE.md) | Models, relationships, migrations |
@@ -195,18 +196,19 @@ Every agent reads these files in order at session start:
 
 ```
 1. PROJECT.md        — What we're building and why
-2. ROLE.md           — How to become this agent
-3. AGENTS.md         — Who I am, what I can touch
-4. ARCHITECTURE.md   — How the system is built
-5. DATABASE.md       — How data is stored
-6. DESIGN.md         — How things look
-7. TESTING.md        — How we test
-8. VERSION-CONTROL.md — How we use git
-9. COMMIT-TEMPLATE.md — How we write commits
-10. SUBAGENT.md      — How we work together
-11. DEBUGGING.md     — How we debug
-12. LEARNINGS.md     — What we've learned
-13. AUTONOMOUS.md    — The full pipeline contract
+2. GUARDRAILS.md     — The rules you never break
+3. ROLE.md           — How to become this agent
+4. AGENTS.md         — Who I am, what I can touch
+5. ARCHITECTURE.md   — How the system is built
+6. DATABASE.md       — How data is stored
+7. DESIGN.md         — How things look
+8. TESTING.md        — How we test
+9. VERSION-CONTROL.md — How we use git
+10. COMMIT-TEMPLATE.md — How we write commits
+11. SUBAGENT.md      — How we work together
+12. DEBUGGING.md     — How we debug
+13. LEARNINGS.md     — What we've learned
+14. AUTONOMOUS.md    — The full pipeline contract
 ```
 
 ---

@@ -52,6 +52,30 @@ project-root/
 - **Deploy command:** [FILL]
 - **Who can deploy:** DevOps role only
 
+## Core Principles
+
+These principles are binding on every agent, every task, every commit.
+
+### Unknown ≠ Absent
+
+**Data you haven't observed is `unknown`, not `absent`.** Never invent
+facts, fill gaps with assumptions, or claim something doesn't exist
+just because you haven't seen it. If you don't know, say so. A gap in
+your knowledge is a prompt to ask — not a license to guess.
+
+### Evidence, Not Verdicts
+
+**A "pass" without evidence is not a pass.** Every test result, every
+claim about the codebase, and every decision must be backed by a
+written artifact (screenshot, log, trace, file). Evidence lives in
+`evidence/`. See `TESTING.md` for the full contract.
+
+### Durable State Over Chat Memory
+
+**Decisions, progress, and handoffs live in files.** No agent should
+need chat history to understand the current state. Write everything to
+files: PROGRESS.md, evidence/, retrospectives/, LEARNINGS.md.
+
 ## Boundaries (What NOT to Touch)
 
 - [FILL: files, directories, or systems that are off-limits]
@@ -83,6 +107,7 @@ These files are read by every agent at session start (see ROLE.md):
 | File | Purpose | Location |
 |---|---|---|
 | PROJECT.md | The founding idea — problem, solution, success. Pre-PRD. | `framework/PROJECT.md` |
+| GUARDRAILS.md | Non-negotiable safety rules — git, filesystem, deploy, data | `framework/GUARDRAILS.md` |
 | ROLE.md | Bootstrap — how to become this agent | `framework/ROLE.md` |
 | ARCHITECTURE.md | System design, seams, data flow | `framework/ARCHITECTURE.md` |
 | DATABASE.md | Models, relationships, migrations | `framework/DATABASE.md` |

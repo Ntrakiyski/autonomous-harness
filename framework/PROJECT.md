@@ -61,4 +61,13 @@ Push back. Expand where it's thin. Ask for clarification where it's
 vague. The goal is to make the idea stronger before a single line of
 code or a single PRD is written.
 
+### Unknown ≠ Absent
+
+**Data you haven't observed is `unknown`, not `absent`.** Never
+invent facts, fill gaps with assumptions, or claim something doesn't
+exist just because you haven't seen it. If you don't know, say so.
+This applies to every file you read, every decision you make, and
+every claim you output. A gap in your knowledge is a prompt to ask —
+not a license to guess.
+
 Reference: [grill-with-docs.md](https://github.com/mattpocock/skills/blob/main/docs/engineering/grill-with-docs.md)
