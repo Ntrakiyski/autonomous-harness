@@ -124,21 +124,21 @@ To upgrade: `specify self upgrade`
 
 | File | Purpose |
 |---|---|
-| `PROJECT.md` | Project constitution — north star, users, milestones, constraints |
-| `AUTONOMOUS.md` | Full pipeline contract — 12 sections, 540 lines |
-| `framework/ROLE.md` | Agent bootstrap — 13-step startup sequence **(do not change)** |
-| `framework/AGENTS.md` | Project roles, workspace, delivery model |
-| `framework/ARCHITECTURE.md` | Module boundaries, data flow, APIs, seams |
-| `framework/DATABASE.md` | Models, relationships, migrations |
-| `framework/DESIGN.md` | Visual token spec (Google DESIGN.md format) |
-| `framework/TESTING.md` | Testing strategy — pyramid, states, evidence, E2E |
-| `framework/DEBUGGING.md` | Structured logging, error traceability, quick fixes |
-| `framework/VERSION-CONTROL.md` | Git workflow, branches, PRs, CI/CD, code review |
-| `framework/COMMIT-TEMPLATE.md` | Commit format + learnings extraction |
-| `framework/SUBAGENT.md` | Inter-agent contract — vocabulary, checklist, handoff |
-| `framework/HERMES.md` | Hermes operations — dispatcher, spawning, worktrees |
-| `framework/LEARNINGS.md` | Accumulated knowledge from retrospectives |
-| `checklists/` | Dynamic per-phase checklists (PRD, Spec, Code, Ship) |
+| [`PROJECT.md`](PROJECT.md) | Project constitution — north star, users, milestones, constraints |
+| [`AUTONOMOUS.md`](AUTONOMOUS.md) | Full pipeline contract — 12 sections, 540 lines |
+| [`framework/ROLE.md`](framework/ROLE.md) | Agent bootstrap — 13-step startup sequence **(do not change)** |
+| [`framework/AGENTS.md`](framework/AGENTS.md) | Project roles, workspace, delivery model |
+| [`framework/ARCHITECTURE.md`](framework/ARCHITECTURE.md) | Module boundaries, data flow, APIs, seams |
+| [`framework/DATABASE.md`](framework/DATABASE.md) | Models, relationships, migrations |
+| [`framework/DESIGN.md`](framework/DESIGN.md) | Visual token spec (Google DESIGN.md format) |
+| [`framework/TESTING.md`](framework/TESTING.md) | Testing strategy — pyramid, states, evidence, E2E |
+| [`framework/DEBUGGING.md`](framework/DEBUGGING.md) | Structured logging, error traceability, quick fixes |
+| [`framework/VERSION-CONTROL.md`](framework/VERSION-CONTROL.md) | Git workflow, branches, PRs, CI/CD, code review |
+| [`framework/COMMIT-TEMPLATE.md`](framework/COMMIT-TEMPLATE.md) | Commit format + learnings extraction |
+| [`framework/SUBAGENT.md`](framework/SUBAGENT.md) | Inter-agent contract — vocabulary, checklist, handoff |
+| [`framework/HERMES.md`](framework/HERMES.md) | Hermes operations — dispatcher, spawning, worktrees |
+| [`framework/LEARNINGS.md`](framework/LEARNINGS.md) | Accumulated knowledge from retrospectives |
+| [`checklists/`](checklists/) | Dynamic per-phase checklists (PRD, Spec, Code, Ship) |
 
 ---
 
