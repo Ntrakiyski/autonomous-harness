@@ -1,97 +1,64 @@
-# PROJECT.md — Project Constitution
+# PROJECT.md — The Idea
 
-> **The highest-level document. Every milestone, phase, PRD, and ticket
-> descends from this file.** Write it once. Change it rarely. Read it first.
+> This is where it starts. Before PRDs, before milestones, before tickets.
+> Write this like you're telling a friend about the thing you want to build.
+> No jargon. No architecture. Just the idea.
 
-## What This Project Is
+## What Are We Building?
 
-[FILL: One paragraph. What does this product do? Who is it for? Why does
-it exist? Keep it under 5 sentences. A new team member should understand
-the product from this paragraph alone.]
+[FILL: Describe what you want to build like you're explaining it to
+someone over coffee. What does it do? Who uses it? What's the experience?
+Keep it under a paragraph — the raw, unfiltered vision.]
 
-## North Star
+## Why Are We Building It?
 
-[FILL: One sentence. The single most important outcome this project exists
-to achieve. Not a feature. Not a metric. The reason the project matters.]
+[FILL: What problem does this solve? Who has this problem? Why does it
+matter to them? What's frustrating or broken today? This is the fuel —
+the reason this project exists at all.]
 
-Example: "Make health data from wearables actionable for patients and their
-doctors without requiring medical training."
+## What Does Success Look Like?
 
-## Users
-
-[FILL: Who uses this? Be specific.]
-
-- **Primary user:** [FILL: e.g. Patient managing a chronic condition]
-- **Secondary user:** [FILL: e.g. Doctor reviewing patient history]
-- **Admin user:** [FILL: e.g. Clinic administrator]
-
-## Core Capabilities
-
-What the product MUST do at minimum. These are not features — they are
-capabilities the product cannot ship without.
+[FILL: When we're done, what's different? What can people do that they
+couldn't before? List the concrete outcomes — not features, not tech.
+These are the deliverables that matter to the people using it.]
 
 - [FILL]
 - [FILL]
 - [FILL]
 
-## Explicit Non-Goals
+## What We Won't Do
 
-What this product explicitly does NOT do. Prevents scope creep across
-milestones.
+[FILL: Explicit boundaries. What are we deliberately NOT building?
+This prevents scope creep and keeps the idea honest.]
+
+- [FILL]
+- [FILL]
+
+## Unique Details / Context
+
+[FILL: Anything else that should never be forgotten. Constraints,
+quirks, specific things the users need, non-obvious requirements.
+The stuff that would get lost if this idea went through too many
+layers of planning.]
 
 - [FILL]
 - [FILL]
 
-## Constraints
+---
 
-Technical, business, or regulatory constraints that apply to ALL
-milestones.
+## For the Agent (Hermes)
 
-- [FILL: e.g. Must be HIPAA compliant]
-- [FILL: e.g. Must work offline]
-- [FILL: e.g. Must support Bulgarian language]
-- [FILL: e.g. Tech stack: Next.js, TypeScript, PostgreSQL, Tailwind]
+When you read this file, your job is not just to follow it — it's to
+**challenge it**. Ask:
 
-## Milestones
+- Is this idea clear enough to build from?
+- Are there gaps or contradictions?
+- Is the problem real, or is it a symptom of something deeper?
+- Are we solving for the right users?
+- What's missing that the user hasn't thought of yet?
 
-High-level roadmap. Each milestone is a self-contained deliverable that
-adds value on its own. Details live in each milestone's PRD.
+Push back. Expand where it's thin. Ask for clarification where it's
+vague. The goal is to make the idea stronger before a single line of
+code or a single PRD is written.
 
-### Milestone 1: [FILL: Name]
-- **Goal:** [FILL: One sentence]
-- **Status:** [planned / in-progress / shipped]
-- **PRD:** `milestones/m1/prd.md`
-
-### Milestone 2: [FILL: Name]
-- **Goal:** [FILL: One sentence]
-- **Status:** [planned]
-- **PRD:** `milestones/m2/prd.md`
-
-## Design Principles
-
-Principles that guide decisions across ALL milestones. These are the
-project's "constitution" — they override convenience.
-
-- [FILL]
-- [FILL]
-- [FILL]
-
-## Key Decisions (ADRs)
-
-Architecture Decision Records that affect the entire project. Milestone-
-specific ADRs live in ARCHITECTURE.md.
-
-| ID | Decision | Rationale | Date |
-|---|---|---|---|
-| ADR-001 | [FILL] | [FILL] | [FILL] |
-| ADR-002 | [FILL] | [FILL] | [FILL] |
-
-## Glossary
-
-Domain-specific terms that mean something specific in this project.
-Shared across all agents and all milestones.
-
-| Term | Definition |
-|---|---|
-| [FILL] | [FILL] |
-| [FILL] | [FILL] |
+Reference: [grill-with-docs.md](https://github.com/mattpocock/skills/blob/main/docs/engineering/grill-with-docs.md)

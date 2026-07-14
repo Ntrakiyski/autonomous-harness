@@ -19,14 +19,18 @@ are defined in the project's AGENTS.md file. Read it first.
 When you start a clean session, read these files in this exact order.
 Each file builds on the previous one. Do not skip.
 
-### 1. PROJECT.md — What This Project Is (Highest Level)
-- **Purpose:** The project constitution — what the product is, who it's for,
-  the north star, core capabilities, non-goals, constraints, milestones,
-  design principles, and shared glossary. Every milestone and phase descends
-  from this file.
-- **Location:** `PROJECT.md` (in the project root)
-- **Key questions it answers:** What are we building? Why? For whom?
-  What are we explicitly NOT building? What constraints apply to everything?
+### 1. PROJECT.md — The Idea (Before Everything Else)
+- **Purpose:** The founding document — the raw idea captured before PRDs,
+  milestones, or tickets. Written by the person who had the idea, in their
+  own words. Think of it as telling a friend what you want to build. No
+  jargon. No architecture. Just the problem, the solution, and what success
+  looks like.
+- **Location:** `framework/PROJECT.md`
+- **Key questions it answers:** What are we building? What problem does it
+  solve? Why does it matter? What are we explicitly NOT building? What
+  unique context would get lost in planning?
+- **Agent's role:** Challenge this file. Is the idea clear? Are there gaps?
+  Is the problem real? Push back before any PRD is written.
 
 ### 2. AGENTS.md — Who You Are and What You Do
 - **Purpose:** Defines your role, responsibilities, permissions, and the

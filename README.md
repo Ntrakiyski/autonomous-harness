@@ -124,7 +124,7 @@ To upgrade: `specify self upgrade`
 
 | File | Purpose |
 |---|---|
-| [`PROJECT.md`](framework/PROJECT.md) | Project constitution — north star, users, milestones, constraints |
+| [`PROJECT.md`](framework/PROJECT.md) | The founding idea — problem, solution, success outcomes. Written before any PRD. |
 | [`AUTONOMOUS.md`](AUTONOMOUS.md) | Full pipeline contract — 12 sections, 540 lines |
 | [`framework/ROLE.md`](framework/ROLE.md) | Agent bootstrap — 13-step startup sequence **(do not change)** |
 | [`framework/AGENTS.md`](framework/AGENTS.md) | Project roles, workspace, delivery model |

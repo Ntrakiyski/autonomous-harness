@@ -57,6 +57,14 @@ software, keeping the product consistent and the developer inside clear lines.
 
 ## Pipeline
 
+0. **Capture the idea** — The person with the idea writes PROJECT.md.
+   This is the founding document: what we're building, the problem it
+   solves, what success looks like, and what we won't do. No jargon.
+   No architecture. Just the raw vision. The agent (Hermes) reads it
+   and challenges it — is the idea clear? Are there gaps? Push back
+   before anything else happens. This file is the anchor that keeps
+   the original vision from drifting across milestones.
+
 1. **Close scope** — Manager locks scope, price, time, and
    deliverables with the client into a signed PDF.
 2. **Translate to PRD** — Planner + Architect + Designer turn the
