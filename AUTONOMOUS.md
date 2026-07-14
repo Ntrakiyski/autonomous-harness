@@ -28,11 +28,15 @@ software, keeping the product consistent and the developer inside clear lines.
   - *Deliverables*: PRD UX/UI section — screens, user actions, consistency
     rules against the current app. DESIGN.md token file (colors, typography,
     spacing, components) with validated WCAG contrast. Tailwind/DTCG exports.
-- **PreDocumentation**: splits the PRD into phases and runs the required Spec
-  Kit commands to produce specs and tasks. This step must use Spec Kit.
-  - *State*: owns phasing and Spec Kit artifacts between PRD and build.
-  - *Deliverables*: phase breakdown plus Spec Kit specs with dependency-ordered
-    tasks.
+- **PreDocumentation**: splits the PRD into phases and, for each phase, runs
+  the Spec Kit flow: `/speckit.constitution` → `/speckit.specify` →
+  `/speckit.clarify` → `/speckit.plan` → `/speckit.tasks` →
+  `/speckit.analyze`. Each phase produces its own `.specify/` directory
+  with constitution, spec, plan, and tasks. Phases are independent — one
+  phase ships before the next begins.
+  - *State*: owns Spec Kit execution per phase between PRD gate and build.
+  - *Deliverables*: per-phase `.specify/` directory with all Spec Kit
+    artifacts. Phases are ordered but self-contained.
 - **Developer**: implements from the specs/tasks. May ask the Designer,
   Architect, or other roles questions at any time. One developer is
   enough for now.
@@ -66,14 +70,26 @@ software, keeping the product consistent and the developer inside clear lines.
    using `checklists/README.md`). Every item must be explicitly checked.
    The Operator or CEO signs off. No "TBD", "later", or unanswered critical
    questions remain. If the gate fails, the PRD returns to step 2.
-4. **Phase + spec** — PreDocumentation splits the PRD into phases, then uses
-   Spec Kit commands to produce specs with tasks.
-5. **Review gate** — The operator reviews Spec Kit output before it reaches
-   the Developer. This gate checks: are all requirements covered? Are
-   dependency chains correct? Is scope preserved from the PRD? If the gate
-   fails, PreDocumentation fixes and resubmits. The gate also applies
-   between Developer → Tester (is the implementation ready for testing?)
-   and Tester → DevOps (did all tests pass with evidence?).
+4. **Spec Kit (per phase)** — PreDocumentation runs the Spec Kit flow for
+   each phase independently. Each phase produces its own `.specify/phase-N/`
+   directory.
+
+   The flow per phase:
+   a. `/speckit.constitution` — phase-level principles (extends AGENTS.md)
+   b. `/speckit.specify` — phase scope: what this phase builds
+   c. `/speckit.clarify` — resolve every ambiguity before planning
+   d. `/speckit.plan` — technical plan: architecture choices, data flow, APIs
+   e. `/speckit.tasks` — executable task list with blocking edges
+   f. `/speckit.analyze` — cross-artifact consistency (spec ↔ plan ↔ tasks)
+
+   Phases are independent. Phase 2 starts only after Phase 1 ships.
+   The output (`tasks.md`) feeds step 6 (Build).
+5. **Analyze gate** — `/speckit.analyze` validates cross-artifact consistency
+   (spec ↔ plan ↔ tasks). If it finds gaps, PreDocumentation fixes before
+   the Developer sees the tasks. This replaces a manual review gate for
+   Spec Kit output. The gate also applies between Developer → Tester (is
+   the implementation ready for testing?) and Tester → DevOps (did all
+   tests pass with evidence?).
 6. **Build** — Developer implements from the tasks, asking other roles when
    unclear.
 7. **Test on staging** — Developer signals done; DevOps pushes to staging;
@@ -93,6 +109,8 @@ software, keeping the product consistent and the developer inside clear lines.
 - Consistency with the current app state is a hard requirement, not a
   preference.
 - Spec Kit is mandatory for turning phases into specs and tasks.
+  Setup: `specify init --integration copilot` then use `/speckit.*`
+  slash commands per phase.
 - Only DevOps deploys; staging comes before production, and production only
   after the Tester signs off.
 
@@ -266,7 +284,7 @@ delegation targets.
 | **Planner** | Claude Code / Codex (analysis mode) | Direct agent reasoning |
 | **Architect** | Codex + `codebase-design` skill | Claude Code |
 | **Designer** | Codex + `frontend-design` skill | Claude Code |
-| **PreDocumentation** | Spec Kit CLI (`specify`) | `to-tickets` skill |
+| **PreDocumentation** | Spec Kit CLI (`/speckit.*` commands) | `to-tickets` skill |
 | **Developer** | Codex CLI (`codex exec`) + Husky (pre-commit) | Claude Code CLI |
 | **Tester** | Playwright (`npx playwright test`) + Husky | `webapp-testing` skill |
 | **DevOps** | Vercel CLI / `gh` CLI / git | Manual deploy via CEO |
@@ -284,10 +302,14 @@ milestone3/
 ├── prd/                           # Planner + Architect + Designer output
 │   ├── milestone-N-prd.md
 │   └── DESIGN.md                  # Visual token spec (Designer, per milestone)
-├── specs/                         # PreDocumentation output (Spec Kit)
+├── specs/                         # PreDocumentation output (Spec Kit per phase)
 │   ├── phase-1/
-│   │   ├── spec.md
-│   │   └── tasks.md
+│   │   ├── .specify/              # Spec Kit artifacts
+│   │   │   ├── constitution.md    #   /speckit.constitution
+│   │   │   ├── spec.md            #   /speckit.specify
+│   │   │   ├── plan.md            #   /speckit.plan
+│   │   │   └── tasks.md           #   /speckit.tasks
+│   │   └── DESIGN.md              #   Phase-specific design tokens (if needed)
 │   └── phase-2/
 ├── evidence/                      # Tester output (per phase)
 │   ├── phase-1/
